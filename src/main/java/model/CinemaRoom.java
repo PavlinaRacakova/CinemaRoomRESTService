@@ -2,9 +2,13 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+@Getter
+@Setter
 
 public class CinemaRoom {
 
@@ -16,7 +20,7 @@ public class CinemaRoom {
     private List<Seat> availableSeats = new ArrayList<>();
 
     @JsonIgnore
-    private List<Seat> purchasedSeats = new ArrayList<>();
+    private Map<String, Seat> purchasedSeats = new HashMap<>();
     @JsonIgnore
     int higherPrice;
     @JsonIgnore
@@ -34,42 +38,27 @@ public class CinemaRoom {
         }
     }
 
-    public int getTotalRows() {
-        return totalRows;
-    }
-
-    public void setTotalRows(int totalRows) {
-        this.totalRows = totalRows;
-    }
-
-    public int getTotalColumns() {
-        return totalColumns;
-    }
-
-    public void setTotalColumns(int total_columns) {
-        this.totalColumns = total_columns;
-    }
-
-    public void setAvailableSeats(List<Seat> availableSeats) {
-        this.availableSeats = availableSeats;
-    }
-
-    public List<Seat> getAvailableSeats() {
-        return availableSeats;
-    }
-
     public boolean isFreeSeat(Seat seat) {
         return availableSeats.contains(seat);
     }
 
-    public void purchaseSeat(Seat seat) {
+    public PurchasedSeatDTO purchaseSeat(Seat seat) {
+        UUID token = UUID.randomUUID();
         availableSeats.remove(seat);
-        purchasedSeats.add(seat);
+        purchasedSeats.put(token.toString(), seat);
+        seat.setPrice((seat.getRow() <= 3) ? higherPrice : lowerPrice);
+        return new PurchasedSeatDTO(token, seat);
     }
 
-    public Seat returnSeatWithPrice(Seat seat) {
-        seat.setPrice((seat.getRow() <= 3) ? higherPrice : lowerPrice);
-        return seat;
+    public boolean seatWithThisTokenHasBeenPurchased (Token token) {
+        return purchasedSeats.containsKey(token.token());
+    }
+
+    public ReturnedSeatDTO returnSeat(Token token) {
+        Seat seatToReturn = purchasedSeats.get(token.token());
+        purchasedSeats.remove(token.token());
+        availableSeats.add(seatToReturn);
+        return new ReturnedSeatDTO(seatToReturn);
     }
 
 }
