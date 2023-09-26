@@ -45,8 +45,8 @@ public class CinemaRoom {
     public PurchasedSeatDTO purchaseSeat(Seat seat) {
         UUID token = UUID.randomUUID();
         availableSeats.remove(seat);
-        purchasedSeats.put(token.toString(), seat);
         seat.setPrice((seat.getRow() <= 3) ? higherPrice : lowerPrice);
+        purchasedSeats.put(token.toString(), seat);
         return new PurchasedSeatDTO(token, seat);
     }
 
@@ -59,6 +59,21 @@ public class CinemaRoom {
         purchasedSeats.remove(token.token());
         availableSeats.add(seatToReturn);
         return new ReturnedSeatDTO(seatToReturn);
+    }
+
+    public int numberOfAvailableSeats() {
+        return availableSeats.size();
+    }
+
+    public int numberOfPurchasedTickets() {
+        return purchasedSeats.size();
+    }
+
+    public int currentIncome() {
+       return purchasedSeats.values()
+                .stream()
+                .mapToInt(Seat::getPrice)
+                .sum();
     }
 
 }

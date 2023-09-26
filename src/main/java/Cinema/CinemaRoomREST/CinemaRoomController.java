@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class CinemaRoomController {
 
     private final CinemaRoom cinemaRoom = new CinemaRoom(9, 9, 10, 8);
+    private static final String PASSWORD = "super_secret";
 
     @GetMapping("/seats")
     public CinemaRoom getSeats() {
@@ -40,5 +41,17 @@ public class CinemaRoomController {
 
         ReturnedSeatDTO returnedSeatDTO = cinemaRoom.returnSeat(token);
         return ResponseEntity.ok().body(returnedSeatDTO);
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<?> returnStats (@RequestParam String password) {
+
+        if(!password.equals(PASSWORD)) {
+            return ResponseEntity.badRequest().body(new ErrorMessage("The password is wrong!"));
+        }
+
+        Stats stats = new Stats(cinemaRoom.currentIncome(), cinemaRoom.numberOfAvailableSeats(), cinemaRoom.numberOfPurchasedTickets());
+        return ResponseEntity.ok().body(stats);
+
     }
 }
