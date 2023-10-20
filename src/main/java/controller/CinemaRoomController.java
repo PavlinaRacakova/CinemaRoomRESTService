@@ -1,6 +1,6 @@
-package Cinema.CinemaRoomREST;
+package controller;
 
-import model.*;
+import cinemaEntities.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.CinemaService;

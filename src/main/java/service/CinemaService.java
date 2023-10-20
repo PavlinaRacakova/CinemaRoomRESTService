@@ -1,7 +1,7 @@
 package service;
 
 import exceptionHandling.ErrorMessage;
-import model.*;
+import cinemaEntities.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
