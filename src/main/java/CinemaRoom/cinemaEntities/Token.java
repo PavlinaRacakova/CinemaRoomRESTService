@@ -1,4 +1,4 @@
-package cinemaEntities;
+package CinemaRoom.cinemaEntities;
 
 public record Token(String token) {
 

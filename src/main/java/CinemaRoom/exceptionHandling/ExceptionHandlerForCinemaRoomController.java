@@ -1,4 +1,4 @@
-package exceptionHandling;
+package CinemaRoom.exceptionHandling;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingPathVariableException;

@@ -1,4 +1,4 @@
-package cinemaEntities;
+package CinemaRoom.cinemaEntities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,9 +1,9 @@
-package controller;
+package CinemaRoom.controller;
 
-import cinemaEntities.*;
+import CinemaRoom.cinemaEntities.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.CinemaService;
+import CinemaRoom.service.CinemaService;
 
 
 @RestController

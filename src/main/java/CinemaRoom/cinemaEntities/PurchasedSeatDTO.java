@@ -1,4 +1,4 @@
-package cinemaEntities;
+package CinemaRoom.cinemaEntities;
 
 import java.util.UUID;
 

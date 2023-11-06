@@ -1,7 +1,7 @@
-package service;
+package CinemaRoom.service;
 
-import exceptionHandling.ErrorMessage;
-import cinemaEntities.*;
+import CinemaRoom.exceptionHandling.ErrorMessage;
+import CinemaRoom.cinemaEntities.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
